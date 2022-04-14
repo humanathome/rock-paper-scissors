@@ -1,10 +1,13 @@
 ## The Odin Project: Rock Paper Scissors
-Simple Javascript implementation of the [Rock-Paper-Scissors](https://www.theodinproject.com/paths/foundations/courses/foundations/lessons/rock-paper-scissors) 
+Simple Javascript implementation of the [Rock-Paper-Scissors](https://www.theodinproject.com/lessons/foundations-revisiting-rock-paper-scissors) 
 game from The Odin Project **Foundations** section.
+
+This version of the game works with a UI, opposed to the initial version that worked only through browser console (see [releases](https://github.com/humanathome/rock-paper-scissors/releases)).
+
 ### Assignment
-- Begin with a function called `computerPlay()` that will randomly return either 'Rock', 'Paper' or 'Scissors'.
-- Write a function `playRound()` that plays single round of Rock-Paper-Scissors. The function should take two parameters - `playerSelection` and `computerSelection`
-and then return a string that declares the winner of the round like so: `You lose! Paper beats rock!`. Make your function's `playerSelection` parameter case-insensitive.
-- Write a new function called `game()`. Call the `playRound()` function inside of this one to play a 5 round  game that keeps
-score and reports a winner or loser at the end. You should be using `console.log()` to display the results of each round and the winner at the end.
-- Use `prompt()` to get input from the user.
+- In the UI, the player should be able to play the game by clicking on buttons.
+- Create three buttons, one for each selection. Add an event listener to the buttons that call your `playRound` function with the correct `playerSelection` every time a button is clicked.
+- Add a `div` for displaying results.
+- Display the running score, and announce a winner of the game once one player reaches 5 points.
+
+Images for game buttons are taken from [Towardsdatascience](https://towardsdatascience.com/building-a-rock-paper-scissors-ai-using-tensorflow-and-opencv-d5fc44fc8222).
