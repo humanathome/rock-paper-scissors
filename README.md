@@ -10,4 +10,6 @@ This version of the game works with a UI, opposed to the initial version that wo
 - Add a `div` for displaying results.
 - Display the running score, and announce a winner of the game once one player reaches 5 points.
 
+Live preview: https://humanathome.github.io/rock-paper-scissors/
+
 Images for game buttons are taken from [Towardsdatascience](https://towardsdatascience.com/building-a-rock-paper-scissors-ai-using-tensorflow-and-opencv-d5fc44fc8222).
