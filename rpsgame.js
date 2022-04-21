@@ -1,82 +1,114 @@
-const items = ["rock", "paper", "scissors"];
+const items = ["ROCK", "PAPER", "SCISSORS"];
 
 let playerSelection;
 let computerSelection;
 let playerScore = 0;
 let computerScore = 0;
+let tieScore = 0;
+
+// add event listener to game buttons
+const gameButtons = document.querySelectorAll('.btn');
+gameButtons.forEach(choice => choice.addEventListener('click', (e) => {
+  playerSelection = e.target.id.toUpperCase();
+  playRound();
+}));
 
 function computerPlay() {
   return items[Math.floor(Math.random() * items.length)];
 }
 
+// play a single round
+function playRound() {
+  computerSelection = computerPlay();
+  if (playerSelection === computerSelection) {
+    roundTie();
+  } else if ((playerSelection === "ROCK") && (computerSelection === "SCISSORS")) {
+    playerWinsRound();
+  } else if ((playerSelection === "PAPER") && (computerSelection === "ROCK")) {
+    playerWinsRound();
+  } else if ((playerSelection === "SCISSORS") && (computerSelection === "PAPER")) {
+    playerWinsRound();
+  } else {
+    computerWinsRound();
+  }
+  displayFinalScore();
+}
+
 function playerWinsRound() {
   playerScore++;
-  return `You win with ${playerSelection}!`;
+  playerScoreDisplay.textContent = `${playerScore}`;
+  roundResult.textContent = `You win the round! ${playerSelection} beats ${computerSelection}`;
+  gameWrapper.appendChild(roundResult);
 }
 
 function computerWinsRound() {
   computerScore++;
-  return `Computer wins with ${computerSelection}.`;
+  computerScoreDisplay.textContent = `${computerScore}`;
+  roundResult.textContent = `You lose! You chose ${playerSelection}, computer beat you with ${computerSelection}`;
+  gameWrapper.appendChild(roundResult);
 }
 
-// remove whitespace and downcase the user input
-function normalizePlayerInput(playerInput) {
-  playerInput = String(playerInput).toLowerCase();
-  return playerInput.replace(/\s+/g, '');
+function roundTie() {
+  tieScore++;
+  tieScoreDisplay.textContent = `${tieScore}`;
+  roundResult.textContent = `It's a draw: ${playerSelection} vs. ${computerSelection}`;
+  gameWrapper.appendChild(roundResult);
 }
 
-function pickInsteadOfPlayer() {
-  return items[Math.floor(Math.random() * items.length)];
-}
-
-// determine final score
-function finalScore() {
-  if (playerScore > computerScore) {
-    console.log(`FINAL SCORE: You won with a score of ${playerScore}! Congratulations!`);
-  } else if (playerScore < computerScore) {
-    console.log(`FINAL SCORE: Computer won with a score of ${computerScore}! Better luck next time.`);
-  } else {
-    console.log("FINAL SCORE: It's a tie! Play again!")
+// determine final score after 5 rounds
+function displayFinalScore() {
+  if (playerScore === 5) {
+    finalResult.classList.add('won');
+    finalResult.textContent = "YOU WON!";
+    finalResultMessage.textContent = "Good job!";
+    gameWrapper.replaceChildren(finalResult, finalResultMessage);
+    playAgain();
+  } else if (computerScore === 5) {
+    finalResult.classList.add('lost');
+    finalResult.textContent = "YOU LOST!";
+    finalResultMessage.textContent = "Better luck next time!";
+    gameWrapper.replaceChildren(finalResult, finalResultMessage);
+    playAgain();
   }
 }
 
-// play a single round
-function playRound(playerSelection, computerSelection) {
-  if (playerSelection === computerSelection) {
-    return "It's a tie.";
-  } else if ((playerSelection === "rock") && (computerSelection === "scissors")) {
-    return playerWinsRound();
-  } else if ((playerSelection === "paper") && (computerSelection === "rock")) {
-    return playerWinsRound();
-  } else if ((playerSelection === "scissors") && (computerSelection === "paper")) {
-    return playerWinsRound();
-  } else {
-    return computerWinsRound();
-  }
+// play again after 5 rounds
+function playAgain() {
+  const playAgainButton = document.createElement("button");
+  playAgainButton.textContent = "PLAY AGAIN";
+  playAgainButton.setAttribute('class', 'play-again');
+  playAgainButton.addEventListener('click', () => {
+    resetScores();
+    finalResult.removeAttribute('class');
+    gameWrapper.replaceChildren(gameContainer);
+  });
+  gameWrapper.appendChild(playAgainButton);
 }
 
-// play 5 rounds
-function game() {
-  for (let i = 1; i < 6; i++) {
-    console.log(`ROUND ${i}/5`)
-    playerSelection = prompt("Pick rock, paper or scissors:");
-    if (playerSelection === null ) {
-      return console.log("You gave up. See you next time. Goodbye!");
-    } else {
-      playerSelection = normalizePlayerInput(playerSelection);
-    }
-    if (!(items.includes(playerSelection))) {
-      let confirmAction = confirm("That is not a valid choice. Do you want me to pick a random item for you?");
-      if (confirmAction === false) {
-        return console.log("You gave up. See you next time. Goodbye!");
-      } else {
-        playerSelection = pickInsteadOfPlayer();
-      }
-    }
-    console.log(`You chose ${playerSelection}.`);
-    computerSelection = computerPlay();
-    console.log(`Computer chose ${computerSelection}.`);
-    console.log(playRound(playerSelection, computerSelection));
-  }
-  return finalScore();
+// reset scores to 0
+function resetScores() {
+  playerScore = 0;
+  computerScore = 0;
+  tieScore = 0;
+  playerScoreDisplay.textContent = "0";
+  computerScoreDisplay.textContent = "0";
+  tieScoreDisplay.textContent = "0";
 }
+
+// elements for displaying the score count after each round
+const playerScoreDisplay = document.getElementById('player-score');
+const computerScoreDisplay = document.getElementById('computer-score');
+const tieScoreDisplay = document.getElementById('tie-score');
+
+// headings for displaying final result after 5 rounds
+const finalResult = document.createElement('h1');
+const finalResultMessage = document.createElement('h3');
+finalResultMessage.classList.add('final-message');
+
+// div to display the current round winner
+const roundResult = document.createElement('div');
+roundResult.classList.add('round-result');
+
+// game wrapper and container
+const gameWrapper = document.getElementById('game-wrapper');
+const gameContainer = document.getElementById('game-container');

@@ -2,10 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="rpsgame.js"></script>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="rpsgame.js" defer></script>
     <title>Play Rock-Paper-Scissors</title>
 </head>
 <body>
+    <h1 id="lead">Play Rock-Paper-Scissors</h1>
+
+    <div id="results-container">
+        <p class="score">Player: <span id="player-score">0</span></p>
+        <p class="score">Computer: <span id="computer-score">0</span></p>
+        <p class="score">Ties: <span id="tie-score">0</span></p>
+    </div>
+
+    <div id="game-wrapper">
+        <div id="game-container">
+            <div class="btn">
+                <img src="images/rock-idle.png" id="rock-idle">
+                <img src="images/rock-hover.png" id="rock" class="img-hover">
+            </div>
+            <div class="btn">
+                <img src="images/paper-idle.png" id="paper-idle">
+                <img src="images/paper-hover.png" id="paper" class="img-hover">
+            </div>
+            <div class="btn">
+                <img src="images/scissors-idle.png" id="scissors-idle">
+                <img src="images/scissors-hover.png" id="scissors" class="img-hover">
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

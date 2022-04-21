@@ -1,0 +1,89 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#lead {
+    margin: 10px;
+}
+
+/* game elements */
+#results-container {
+    display: flex;
+    justify-content: center;
+}
+
+.score {
+    width: 100px;
+    text-align: center;
+}
+
+#player-score, #computer-score, #tie-score {
+    font-weight: bold;
+}
+
+#game-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#game-container {
+    margin: 10px;
+    display: flex;
+    gap: 50px;
+}
+
+/* change images on mouse hover */
+.btn {
+    position: relative;
+}
+
+.img-hover {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+
+.btn:hover .img-hover {
+    display: inline;
+    cursor: pointer;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+.round-result {
+    margin: 20px;
+}
+
+/* final result elements */
+.won {
+    color: forestgreen;
+    margin-bottom: 0;
+}
+
+.lost {
+    color: red;
+    margin-bottom: 0;
+}
+
+.final-message {
+    margin: 5px;
+}
+
+.play-again {
+    margin: 20px;
+    padding: 10px 20px;
+    border-radius: 15px;
+    background-color: dodgerblue;
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
